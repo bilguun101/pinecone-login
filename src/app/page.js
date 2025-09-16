@@ -61,6 +61,7 @@ export default function Home() {
           <input
             onChange={handleInputValue1}
             value={firstState}
+            className={firstError ? "input-error" : "input-style"}
             placeholder="Enter first name..." />
           {firstError && <p className="error-text"> First name cannot contain special characters or numbers. </p>}
 
@@ -68,6 +69,7 @@ export default function Home() {
           <input
             onChange={handleInputValue2}
             value={secondState}
+            className={secondError ? "input-error" : "input-style"}
             placeholder="Enter last name..." />
           {secondError && <p className="error-text"> Last name cannot contain special characters or numbers. </p>}
 
@@ -75,6 +77,7 @@ export default function Home() {
           <input
             onChange={handleInputValue3}
             value={thirdState}
+            className={thirdError ? "input-error" : "input-style"}
             placeholder="Enter username..." />
           {thirdError && <p className="error-text"> This username is already taken. Please choose another one. </p>}
 
