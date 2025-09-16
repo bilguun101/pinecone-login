@@ -1,6 +1,7 @@
 'use client'
 import "./index.css";
 import { useState } from "react";
+import { FormInput } from "./_components/form-input";
 
 const checkIfInputHasSpecialCharacters = (string) => {
   return /[!@#$%^&*(),.?":{}|<>]/.test(string);
@@ -32,12 +33,24 @@ export default function Home() {
     if (checkIfInputHasNumbers(formValues.firstName) || checkIfInputHasSpecialCharacters(formValues.firstName)) {
       errors.firstName = 'First name cannot contain special characters or numbers.'
     }
+    if (checkIfInputHasNumbers(formValues.lastName) || checkIfInputHasSpecialCharacters(formValues.lastName)) {
+      errors.lastName = 'Last name cannot contain special characters or numbers.'
+    }
+    if (checkIfInputHasNumbers(formValues.userName) || checkIfInputHasSpecialCharacters(formValues.userName)) {
+      errors.userName = 'Username cannot contain special characters or numbers.'
+    }
     return errors;
   }
 
   const handleContinueButton = () => {
     const errors = validateInput()
     console.log(errors);
+    if (Object.keys(errors).length === 0) {
+      setErrorState({});
+    }
+    else {
+      setErrorState(errors);
+    }
   }
 
   return (
@@ -53,33 +66,24 @@ export default function Home() {
         </div>
 
         <div className="input-part">
-          <p> First name <span style={{ color: "red" }}>*</span> </p>
-          <input
-            onChange={handleInputChange}
+          <FormInput
+            inputTag={'First Name'}
+            handleChange={handleInputChange}
+            name={"firstName"}
             value={formValues.firstName}
-            name="firstName"
-            className="input-style"
-            placeholder="Enter first name..." />
-          {/* {firstError && <p className="error-text"> First name cannot contain special characters or numbers. </p>} */}
-
-          <p> Last name <span style={{ color: "red" }}>*</span> </p>
-          <input
-            onChange={handleInputChange}
+            error={errorState.firstName} />
+          <FormInput
+            inputTag={'Last Name'}
+            handleChange={handleInputChange}
+            name={"lastName"}
             value={formValues.lastName}
-            name="lastName"
-            className="input-style"
-            placeholder="Enter last name..." />
-          {/* {secondError && <p className="error-text"> Last name cannot contain special characters or numbers. </p>} */}
-
-          <p> Username <span style={{ color: "red" }}>*</span> </p>
-          <input
-            onChange={handleInputChange}
+            error={errorState.lastName} />
+          <FormInput
+            inputTag={'User Name'}
+            handleChange={handleInputChange}
+            name={"userName"}
             value={formValues.userName}
-            name="userName"
-            className="input-style"
-            placeholder="Enter username..." />
-          {/* {thirdError && <p className="error-text"> This username is already taken. Please choose another one. </p>} */}
-
+            error={errorState.userName} />
         </div>
 
         <button
