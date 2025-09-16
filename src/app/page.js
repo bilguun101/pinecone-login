@@ -2,46 +2,42 @@
 import "./index.css";
 import { useState } from "react";
 
+const checkIfInputHasSpecialCharacters = (string) => {
+  return /[!@#$%^&*(),.?":{}|<>]/.test(string);
+}
+
+const checkIfInputHasNumbers = (string) => {
+  return /\d/.test(string);
+}
+
 export default function Home() {
 
-  const [firstState, setFirstState] = useState("");
-  const [secondState, setSecondState] = useState("");
-  const [thirdState, setThirdState] = useState("");
-  const [firstError, setFirstError] = useState(false);
-  const [secondError, setSecondError] = useState(false);
-  const [thirdError, setThirdError] = useState(false);
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+  })
 
-  const handleInputValue1 = (event) => {
-    setFirstState(event.target.value);
-  };
-  const handleInputValue2 = (event) => {
-    setSecondState(event.target.value);
-  };
-  const handleInputValue3 = (event) => {
-    setThirdState(event.target.value);
-  };
+  const [errorState, setErrorState] = useState({});
+
+  const handleInputChange = (e) => {
+    const inputName = e.target.name;
+    const inputValue = e.target.value;
+    setFormValues({ ...formValues, [inputName]: inputValue });
+  }
+
+  const validateInput = () => {
+    const errors = {}
+
+    if (checkIfInputHasNumbers(formValues.firstName) || checkIfInputHasSpecialCharacters(formValues.firstName)) {
+      errors.firstName = 'First name cannot contain special characters or numbers.'
+    }
+    return errors;
+  }
 
   const handleContinueButton = () => {
-    if (/\d/.test(firstState) || /[!@#$%^&*(),.?":{}|<>]/.test(firstState)) {
-      setFirstError(true);
-    }
-    else {
-      setFirstError(false);
-    }
-
-    if (/\d/.test(secondState) || /[!@#$%^&*(),.?":{}|<>]/.test(secondState)) {
-      setSecondError(true);
-    }
-    else {
-      setSecondError(false);
-    }
-
-    if (thirdState.length < 3) {
-      setThirdError(true);
-    }
-    else {
-      setThirdError(false);
-    }
+    const errors = validateInput()
+    console.log(errors);
   }
 
   return (
@@ -59,27 +55,30 @@ export default function Home() {
         <div className="input-part">
           <p> First name <span style={{ color: "red" }}>*</span> </p>
           <input
-            onChange={handleInputValue1}
-            value={firstState}
-            className={firstError ? "input-error" : "input-style"}
+            onChange={handleInputChange}
+            value={formValues.firstName}
+            name="firstName"
+            className="input-style"
             placeholder="Enter first name..." />
-          {firstError && <p className="error-text"> First name cannot contain special characters or numbers. </p>}
+          {/* {firstError && <p className="error-text"> First name cannot contain special characters or numbers. </p>} */}
 
           <p> Last name <span style={{ color: "red" }}>*</span> </p>
           <input
-            onChange={handleInputValue2}
-            value={secondState}
-            className={secondError ? "input-error" : "input-style"}
+            onChange={handleInputChange}
+            value={formValues.lastName}
+            name="lastName"
+            className="input-style"
             placeholder="Enter last name..." />
-          {secondError && <p className="error-text"> Last name cannot contain special characters or numbers. </p>}
+          {/* {secondError && <p className="error-text"> Last name cannot contain special characters or numbers. </p>} */}
 
           <p> Username <span style={{ color: "red" }}>*</span> </p>
           <input
-            onChange={handleInputValue3}
-            value={thirdState}
-            className={thirdError ? "input-error" : "input-style"}
+            onChange={handleInputChange}
+            value={formValues.userName}
+            name="userName"
+            className="input-style"
             placeholder="Enter username..." />
-          {thirdError && <p className="error-text"> This username is already taken. Please choose another one. </p>}
+          {/* {thirdError && <p className="error-text"> This username is already taken. Please choose another one. </p>} */}
 
         </div>
 
