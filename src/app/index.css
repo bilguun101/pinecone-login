@@ -72,6 +72,8 @@ body {
     height: 44px;
     border-radius: 6px;
     margin-top: 545px;
+    font-size: 16px;
+    font-weight: 500;
     color: #FFFFFF;
     cursor: pointer;
     position: absolute;

@@ -1,100 +1,35 @@
 'use client'
-import "./index.css";
 import { useState } from "react";
-import { FormInput } from "./_components/form-input";
+import { StepOne } from "./_features/stepOne";
+import { StepTwo } from "./_features/stepTwo";
+import { StepThree } from "./_features/stepThree";
+import "./index.css";
 
-const checkIfInputHasSpecialCharacters = (string) => {
-  return /[!@#$%^&*(),.?":{}|<>]/.test(string);
-}
 
-const checkIfInputHasNumbers = (string) => {
-  return /\d/.test(string);
-}
 
 export default function Home() {
 
-  const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-  })
+  const [step, setStep] = useState(1);
 
-  const [errorState, setErrorState] = useState({});
-
-  const handleInputChange = (e) => {
-    const inputName = e.target.name;
-    const inputValue = e.target.value;
-    setFormValues({ ...formValues, [inputName]: inputValue });
+  const handleNextStep = () => {
+    setStep(step + 1);
   }
 
-  const validateInput = () => {
-    const errors = {}
-
-    if (checkIfInputHasNumbers(formValues.firstName) || checkIfInputHasSpecialCharacters(formValues.firstName)) {
-      errors.firstName = 'First name cannot contain special characters or numbers.'
-    }
-    if (checkIfInputHasNumbers(formValues.lastName) || checkIfInputHasSpecialCharacters(formValues.lastName)) {
-      errors.lastName = 'Last name cannot contain special characters or numbers.'
-    }
-    if (checkIfInputHasNumbers(formValues.userName) || checkIfInputHasSpecialCharacters(formValues.userName)) {
-      errors.userName = 'Username cannot contain special characters or numbers.'
-    }
-    return errors;
-  }
-
-  const handleContinueButton = () => {
-    const errors = validateInput()
-    console.log(errors);
-    if (Object.keys(errors).length === 0) {
-      setErrorState({});
+  const handleBackStep = () => {
+    if (step === 1) {
+      return;
     }
     else {
-      setErrorState(errors);
+      setStep(step - 1);
     }
   }
 
   return (
-    <div className="outer-container-div-that-probably-does-not-matter-that-much">
-
-
-      <div className="box">
-        <img src="/pinecone-logo.png" alt="error" />
-
-        <div className="top-texts">
-          <p> Join us! 😎 </p>
-          <p> Please provide all current information accurately. </p>
-        </div>
-
-        <div className="input-part">
-          <FormInput
-            inputTag={'First Name'}
-            handleChange={handleInputChange}
-            name={"firstName"}
-            value={formValues.firstName}
-            error={errorState.firstName} />
-          <FormInput
-            inputTag={'Last Name'}
-            handleChange={handleInputChange}
-            name={"lastName"}
-            value={formValues.lastName}
-            error={errorState.lastName} />
-          <FormInput
-            inputTag={'User Name'}
-            handleChange={handleInputChange}
-            name={"userName"}
-            value={formValues.userName}
-            error={errorState.userName} />
-        </div>
-
-        <button
-          onClick={handleContinueButton}
-          className="button">
-          Continue
-        </button>
-      </div>
-
-
-    </div>
+    <>
+      {step === 1 && <StepOne handleNextStep={handleNextStep} />}
+      {step === 2 && <StepTwo />}
+      {step === 3 && <StepThree />}
+    </>
   );
 }
 
