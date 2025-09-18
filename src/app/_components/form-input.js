@@ -1,6 +1,6 @@
 export const FormInput = (props) => {
 
-    const { error, value, handleChange, inputTag, name } = props;
+    const { error, value, handleChange, inputTag, name, placeholder, type } = props;
 
     return (
         <div>
@@ -10,7 +10,8 @@ export const FormInput = (props) => {
                 value={value}
                 name={name}
                 className={error ? "input-error" : "input-style"}
-                placeholder="Enter first name..." />
+                placeholder={placeholder}
+                type={type} />
             {error && <p className="error-text"> {error} </p>}
         </div>
     )

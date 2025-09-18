@@ -1,23 +1,35 @@
 'use client'
 import { useState } from "react";
-import { FormInput } from "../_components/info-input";
+import { FormInput } from "../_components/form-input";
 
-const checkIfInputHasSpecialCharacters = (string) => {
-    return /[!@#$%^&*(),.?":{}|<>]/.test(string);
+
+const checkIfInputIsEmail = (string) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(string);
+}
+
+const checkIfInputIsPhoneNumber = (string) => {
+    return /^[0-9]{8}$/.test(string);
+}
+
+const checkIfInputHasLetters = (string) => {
+    return /[a-zA-Z]/.test(string);
 }
 
 const checkIfInputHasNumbers = (string) => {
     return /\d/.test(string);
 }
 
+
+
 export const StepTwo = (props) => {
 
     const { handleNextStep } = props;
 
     const [formValues, setFormValues] = useState({
-        firstName: "",
-        lastName: "",
-        userName: "",
+        email: "",
+        phoneNumber: "",
+        password: "",
+        confirmPassword: ""
     })
 
     const [errorState, setErrorState] = useState({});
@@ -31,14 +43,17 @@ export const StepTwo = (props) => {
     const validateInput = () => {
         const errors = {}
 
-        if (checkIfInputHasNumbers(formValues.firstName) || checkIfInputHasSpecialCharacters(formValues.firstName)) {
-            errors.firstName = 'First name cannot contain special characters or numbers.'
+        if (!checkIfInputIsEmail(formValues.email)) {
+            errors.email = 'Please provide a valid email address.'
         }
-        if (checkIfInputHasNumbers(formValues.lastName) || checkIfInputHasSpecialCharacters(formValues.lastName)) {
-            errors.lastName = 'Last name cannot contain special characters or numbers.'
+        if (!checkIfInputIsPhoneNumber(formValues.phoneNumber)) {
+            errors.phoneNumber = 'Please enter a valid phone number.'
         }
-        if (checkIfInputHasNumbers(formValues.userName) || checkIfInputHasSpecialCharacters(formValues.userName)) {
-            errors.userName = 'Username cannot contain special characters or numbers.'
+        if (!checkIfInputHasLetters(formValues.password) || !checkIfInputHasNumbers(formValues.password)) {
+            errors.password = 'Password must include letters and numbers.'
+        }
+        if ((formValues.confirmPassword) !== (formValues.password)) {
+            errors.confirmPassword = 'Passwords do not match. Please try again.'
         }
         return errors;
     }
@@ -57,9 +72,10 @@ export const StepTwo = (props) => {
 
     const shouldDisableButton = () => {
         return (
-            formValues.firstName.length === 0 ||
-            formValues.lastName.length === 0 ||
-            formValues.userName.length === 0
+            formValues.email.length === 0 ||
+            formValues.phoneNumber.length === 0 ||
+            formValues.password.length === 0 ||
+            formValues.confirmPassword.length === 0
         );
     }
 
@@ -77,31 +93,44 @@ export const StepTwo = (props) => {
 
                 <div className="input-part">
                     <FormInput
-                        inputTag={'First Name'}
+                        inputTag={'Email'}
                         handleChange={handleInputChange}
-                        name={"firstName"}
-                        value={formValues.firstName}
-                        error={errorState.firstName} />
+                        name={"email"}
+                        value={formValues.email}
+                        error={errorState.email}
+                        placeholder={"Enter email..."} />
                     <FormInput
-                        inputTag={'Last Name'}
+                        inputTag={'Phone number'}
                         handleChange={handleInputChange}
-                        name={"lastName"}
-                        value={formValues.lastName}
-                        error={errorState.lastName} />
+                        name={"phoneNumber"}
+                        value={formValues.phoneNumber}
+                        error={errorState.phoneNumber}
+                        placeholder={"Enter phone number..."} />
                     <FormInput
-                        inputTag={'User Name'}
+                        inputTag={'Password'}
                         handleChange={handleInputChange}
-                        name={"userName"}
-                        value={formValues.userName}
-                        error={errorState.userName} />
+                        name={"password"}
+                        value={formValues.password}
+                        error={errorState.password}
+                        placeholder={"Enter password..."}
+                        type="password" />
+                    <FormInput
+                        inputTag={'Confirm password'}
+                        handleChange={handleInputChange}
+                        name={"confirmPassword"}
+                        value={formValues.confirmPassword}
+                        error={errorState.confirmPassword}
+                        placeholder={"Rewrite password..."}
+                        type="password" />
                 </div>
 
                 <button
                     disabled={shouldDisableButton()}
                     onClick={handleContinueButton}
                     className="button">
-                    Continue 1/3 &gt;
+                    Continue 2/3 &gt;
                 </button>
+
             </div>
 
 

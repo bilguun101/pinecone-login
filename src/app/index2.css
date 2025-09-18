@@ -10,7 +10,7 @@ body {
 .outer-container-div-that-probably-does-not-matter-that-much {
     background-color: white;
     width: 480px;
-    min-height: 655px;
+    height: 655px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -71,7 +71,7 @@ body {
     width: 416px;
     height: 44px;
     border-radius: 6px;
-    margin-top: 550px;
+    margin-top: 545px;
     font-size: 16px;
     font-weight: 500;
     color: #FFFFFF;
@@ -84,5 +84,5 @@ body {
 .error-text {
     color: #E14942;
     font-size: 14px;
-    margin: -10px 0 10px 0;
+    margin-top: -10px;
 }

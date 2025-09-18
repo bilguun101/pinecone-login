@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <>
       {step === 1 && <StepOne handleNextStep={handleNextStep} />}
-      {step === 2 && <StepTwo />}
+      {step === 2 && <StepTwo handleNextStep={handleNextStep} />}
       {step === 3 && <StepThree />}
     </>
   );

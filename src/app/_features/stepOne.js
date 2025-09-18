@@ -81,19 +81,22 @@ export const StepOne = (props) => {
                         handleChange={handleInputChange}
                         name={"firstName"}
                         value={formValues.firstName}
-                        error={errorState.firstName} />
+                        error={errorState.firstName}
+                        placeholder={"Enter first name..."} />
                     <FormInput
                         inputTag={'Last Name'}
                         handleChange={handleInputChange}
                         name={"lastName"}
                         value={formValues.lastName}
-                        error={errorState.lastName} />
+                        error={errorState.lastName}
+                        placeholder={"Enter last name..."} />
                     <FormInput
                         inputTag={'User Name'}
                         handleChange={handleInputChange}
                         name={"userName"}
                         value={formValues.userName}
-                        error={errorState.userName} />
+                        error={errorState.userName}
+                        placeholder={"Enter username..."} />
                 </div>
 
                 <button
