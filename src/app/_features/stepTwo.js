@@ -23,7 +23,7 @@ const checkIfInputHasNumbers = (string) => {
 
 export const StepTwo = (props) => {
 
-    const { handleNextStep } = props;
+    const { handleNextStep, handleBackStep } = props;
 
     const [formValues, setFormValues] = useState({
         email: "",
@@ -68,6 +68,10 @@ export const StepTwo = (props) => {
         else {
             setErrorState(errors);
         }
+    }
+
+    const handleBackButton = () => {
+        handleBackStep();
     }
 
     const shouldDisableButton = () => {
@@ -124,12 +128,20 @@ export const StepTwo = (props) => {
                         type="password" />
                 </div>
 
-                <button
-                    disabled={shouldDisableButton()}
-                    onClick={handleContinueButton}
-                    className="button">
-                    Continue 2/3 &gt;
-                </button>
+
+                <div className="back-continue">
+                    <button
+                        className="button-1"
+                        onClick={handleBackButton} >
+                        &lt; Back
+                    </button>
+                    <button
+                        className="button-2"
+                        disabled={shouldDisableButton()}
+                        onClick={handleContinueButton} >
+                        Continue 2/3 &gt;
+                    </button>
+                </div>
 
             </div>
 

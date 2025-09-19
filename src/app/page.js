@@ -4,6 +4,7 @@ import { StepOne } from "./_features/stepOne";
 import { StepTwo } from "./_features/stepTwo";
 import { StepThree } from "./_features/stepThree";
 import "./index.css";
+import { StepFour } from "./_features/stepFour";
 
 
 
@@ -27,8 +28,9 @@ export default function Home() {
   return (
     <>
       {step === 1 && <StepOne handleNextStep={handleNextStep} />}
-      {step === 2 && <StepTwo handleNextStep={handleNextStep} />}
-      {step === 3 && <StepThree />}
+      {step === 2 && <StepTwo handleNextStep={handleNextStep} handleBackStep={handleBackStep} />}
+      {step === 3 && <StepThree handleNextStep={handleNextStep} handleBackStep={handleBackStep} />}
+      {step === 4 && <StepFour />}
     </>
   );
 }
