@@ -12,7 +12,7 @@ export const StepFour = () => {
                 <img src="/pinecone-logo.png" alt="error" />
 
                 <div className="top-texts">
-                    <p> You're All Set 🔥 </p>
+                    <p> You&apos;sre All Set 🔥 </p>
                     <p> We have received your submission. Thank you! </p>
                 </div>
 
